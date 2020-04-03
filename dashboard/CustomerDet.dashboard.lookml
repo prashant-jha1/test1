@@ -1,17 +1,17 @@
-- dashboard: customer_segmentation
-  title: Customer Segmentation
+- dashboard: apollo_customer_segmentation
+  title: Apollo Customer Segmentation
   auto_run: true
   layout: newspaper
   elements:
   - title: Orders 2019
     name: Orders 2019
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: single_value
-    fields: [apollo_playbook_customer_transactions_reporting.Years, apollo_playbook_customer_transactions_reporting.count]
-    sorts: [apollo_playbook_customer_transactions_reporting.Years desc]
+    fields: [customer_transactions.Years, customer_transactions.count]
+    sorts: [customer_transactions.Years desc]
     limit: 500
-    dynamic_fields: [{table_calculation: vs_lastyear, label: Vs LastYear, expression: "${apollo_playbook_customer_transactions_reporting.count}/offset(${apollo_playbook_customer_transactions_reporting.count},1)\
+    dynamic_fields: [{table_calculation: vs_lastyear, label: Vs LastYear, expression: "${customer_transactions.count}/offset(${customer_transactions.count},1)\
           \ - 1", value_format: !!null '', value_format_name: percent_2, _kind_hint: measure,
         _type_hint: number}]
     custom_color_enabled: true
@@ -26,12 +26,12 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     listen:
-      Segment: apollo_playbook_customer_transactions_reporting.segment
-      Region: apollo_playbook_customer_transactions_reporting.region
-      Category: apollo_playbook_customer_transactions_reporting.category
-      Country: apollo_playbook_customer_transactions_reporting.country
-      SubCategory: apollo_playbook_customer_transactions_reporting.sub_category
-      CustomerName: apollo_playbook_customer_transactions_reporting.customer_name
+      Segment: customer_transactions.segment
+      Region: customer_transactions.region
+      Category: customer_transactions.category
+      Country: customer_transactions.country
+      SubCategory: customer_transactions.sub_category
+      CustomerName: customer_transactions.customer_name
     row: 3
     col: 11
     width: 5
@@ -39,21 +39,21 @@
   - title: Category Wise Sales
     name: Category Wise Sales
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: looker_pie
-    fields: [apollo_playbook_customer_transactions_reporting.category, apollo_playbook_customer_transactions_reporting.sales]
-    sorts: [apollo_playbook_customer_transactions_reporting.sales desc]
+    fields: [customer_transactions.category, customer_transactions.sales]
+    sorts: [customer_transactions.sales desc]
     limit: 500
     value_labels: legend
     label_type: labPer
     series_types: {}
     listen:
-      Segment: apollo_playbook_customer_transactions_reporting.segment
-      Region: apollo_playbook_customer_transactions_reporting.region
-      Category: apollo_playbook_customer_transactions_reporting.category
-      Country: apollo_playbook_customer_transactions_reporting.country
-      SubCategory: apollo_playbook_customer_transactions_reporting.sub_category
-      CustomerName: apollo_playbook_customer_transactions_reporting.customer_name
+      Segment: customer_transactions.segment
+      Region: customer_transactions.region
+      Category: customer_transactions.category
+      Country: customer_transactions.country
+      SubCategory: customer_transactions.sub_category
+      CustomerName: customer_transactions.customer_name
     row: 7
     col: 15
     width: 9
@@ -61,12 +61,12 @@
   - title: Region Wise Sales
     name: Region Wise Sales
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: looker_grid
-    fields: [apollo_playbook_customer_transactions_reporting.region, apollo_playbook_customer_transactions_reporting.sales]
+    fields: [customer_transactions.region, customer_transactions.sales]
     filters:
-      apollo_playbook_customer_transactions_reporting.order_date: 2019/10/01 to 2019/12/31
-    sorts: [apollo_playbook_customer_transactions_reporting.sales desc]
+      customer_transactions.order_date: 2019/10/01 to 2019/12/31
+    sorts: [customer_transactions.sales desc]
     limit: 500
     show_view_names: false
     show_row_numbers: true
@@ -76,7 +76,7 @@
     hide_row_totals: false
     size_to_fit: true
     series_cell_visualizations:
-      apollo_playbook_customer_transactions_reporting.sales:
+      customer_transactions.sales:
         is_active: false
     table_theme: editable
     limit_displayed_rows: false
@@ -91,15 +91,15 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     series_value_format:
-      apollo_playbook_customer_transactions_reporting.sales: $0.00, "K"
+      customer_transactions.sales: $0.00, "K"
     series_types: {}
     listen:
-      Segment: apollo_playbook_customer_transactions_reporting.segment
-      Region: apollo_playbook_customer_transactions_reporting.region
-      Category: apollo_playbook_customer_transactions_reporting.category
-      Country: apollo_playbook_customer_transactions_reporting.country
-      SubCategory: apollo_playbook_customer_transactions_reporting.sub_category
-      CustomerName: apollo_playbook_customer_transactions_reporting.customer_name
+      Segment: customer_transactions.segment
+      Region: customer_transactions.region
+      Category: customer_transactions.category
+      Country: customer_transactions.country
+      SubCategory: customer_transactions.sub_category
+      CustomerName: customer_transactions.customer_name
     row: 7
     col: 0
     width: 8
@@ -107,12 +107,12 @@
   - title: Quantity 2019
     name: Quantity 2019
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: single_value
-    fields: [apollo_playbook_customer_transactions_reporting.Years, apollo_playbook_customer_transactions_reporting.quantity]
-    sorts: [apollo_playbook_customer_transactions_reporting.Years desc]
+    fields: [customer_transactions.Years, customer_transactions.quantity]
+    sorts: [customer_transactions.Years desc]
     limit: 500
-    dynamic_fields: [{table_calculation: vs_lastyear, label: Vs LastYear, expression: "${apollo_playbook_customer_transactions_reporting.quantity}-offset(${apollo_playbook_customer_transactions_reporting.quantity},1)\
+    dynamic_fields: [{table_calculation: vs_lastyear, label: Vs LastYear, expression: "${customer_transactions.quantity}-offset(${customer_transactions.quantity},1)\
           \ - 1", value_format: !!null '', value_format_name: decimal_0, _kind_hint: measure,
         _type_hint: number}]
     custom_color_enabled: true
@@ -131,12 +131,12 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     listen:
-      Segment: apollo_playbook_customer_transactions_reporting.segment
-      Region: apollo_playbook_customer_transactions_reporting.region
-      Category: apollo_playbook_customer_transactions_reporting.category
-      Country: apollo_playbook_customer_transactions_reporting.country
-      SubCategory: apollo_playbook_customer_transactions_reporting.sub_category
-      CustomerName: apollo_playbook_customer_transactions_reporting.customer_name
+      Segment: customer_transactions.segment
+      Region: customer_transactions.region
+      Category: customer_transactions.category
+      Country: customer_transactions.country
+      SubCategory: customer_transactions.sub_category
+      CustomerName: customer_transactions.customer_name
     row: 3
     col: 6
     width: 5
@@ -144,12 +144,12 @@
   - title: Profit 2019
     name: Profit 2019
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: single_value
-    fields: [apollo_playbook_customer_transactions_reporting.Years, apollo_playbook_customer_transactions_reporting.profit]
-    sorts: [apollo_playbook_customer_transactions_reporting.Years desc]
+    fields: [customer_transactions.Years, customer_transactions.profit]
+    sorts: [customer_transactions.Years desc]
     limit: 500
-    dynamic_fields: [{table_calculation: vs_lastyear, label: Vs LastYear, expression: "${apollo_playbook_customer_transactions_reporting.profit}/offset(${apollo_playbook_customer_transactions_reporting.profit},1)\
+    dynamic_fields: [{table_calculation: vs_lastyear, label: Vs LastYear, expression: "${customer_transactions.profit}/offset(${customer_transactions.profit},1)\
           \ - 1", value_format: !!null '', value_format_name: percent_2, _kind_hint: measure,
         _type_hint: number}]
     custom_color_enabled: true
@@ -164,12 +164,12 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     listen:
-      Segment: apollo_playbook_customer_transactions_reporting.segment
-      Region: apollo_playbook_customer_transactions_reporting.region
-      Category: apollo_playbook_customer_transactions_reporting.category
-      Country: apollo_playbook_customer_transactions_reporting.country
-      SubCategory: apollo_playbook_customer_transactions_reporting.sub_category
-      CustomerName: apollo_playbook_customer_transactions_reporting.customer_name
+      Segment: customer_transactions.segment
+      Region: customer_transactions.region
+      Category: customer_transactions.category
+      Country: customer_transactions.country
+      SubCategory: customer_transactions.sub_category
+      CustomerName: customer_transactions.customer_name
     row: 3
     col: 16
     width: 8
@@ -177,34 +177,34 @@
   - title: Market Order Counts Last Month
     name: Market Order Counts Last Month
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: looker_area
-    fields: [apollo_playbook_customer_transactions_reporting.order_date, apollo_playbook_customer_transactions_reporting.count,
-      apollo_playbook_customer_transactions_reporting.market]
-    pivots: [apollo_playbook_customer_transactions_reporting.market]
-    fill_fields: [apollo_playbook_customer_transactions_reporting.order_date]
+    fields: [customer_transactions.order_date, customer_transactions.count,
+      customer_transactions.market]
+    pivots: [customer_transactions.market]
+    fill_fields: [customer_transactions.order_date]
     filters:
-      apollo_playbook_customer_transactions_reporting.order_quarter: 2019/12/01 to
+      customer_transactions.order_quarter: 2019/12/01 to
         2019/12/31
-    sorts: [apollo_playbook_customer_transactions_reporting.order_date desc, apollo_playbook_customer_transactions_reporting.market]
+    sorts: [customer_transactions.order_date desc, customer_transactions.market]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    y_axes: [{label: Order Counts, orientation: left, series: [{axisId: apollo_playbook_customer_transactions_reporting.count,
-            id: "Africa\n - apollo_playbook_customer_transactions_reporting.count",
+    y_axes: [{label: Order Counts, orientation: left, series: [{axisId: customer_transactions.count,
+            id: "Africa\n - customer_transactions.count",
             name: 'Africa
-              '}, {axisId: apollo_playbook_customer_transactions_reporting.count,
-            id: "Asia Pacific\n - apollo_playbook_customer_transactions_reporting.count",
+              '}, {axisId: customer_transactions.count,
+            id: "Asia Pacific\n - customer_transactions.count",
             name: 'Asia Pacific
-              '}, {axisId: apollo_playbook_customer_transactions_reporting.count,
-            id: "Europe\n - apollo_playbook_customer_transactions_reporting.count",
+              '}, {axisId: customer_transactions.count,
+            id: "Europe\n - customer_transactions.count",
             name: 'Europe
-              '}, {axisId: apollo_playbook_customer_transactions_reporting.count,
-            id: "LATAM\n - apollo_playbook_customer_transactions_reporting.count",
+              '}, {axisId: customer_transactions.count,
+            id: "LATAM\n - customer_transactions.count",
             name: 'LATAM
-              '}, {axisId: apollo_playbook_customer_transactions_reporting.count,
-            id: "USCA\n - apollo_playbook_customer_transactions_reporting.count",
+              '}, {axisId: customer_transactions.count,
+            id: "USCA\n - customer_transactions.count",
             name: 'USCA
               '}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
@@ -236,12 +236,12 @@
     show_silhouette: false
     totals_color: "#808080"
     listen:
-      Segment: apollo_playbook_customer_transactions_reporting.segment
-      Region: apollo_playbook_customer_transactions_reporting.region
-      Category: apollo_playbook_customer_transactions_reporting.category
-      Country: apollo_playbook_customer_transactions_reporting.country
-      SubCategory: apollo_playbook_customer_transactions_reporting.sub_category
-      CustomerName: apollo_playbook_customer_transactions_reporting.customer_name
+      Segment: customer_transactions.segment
+      Region: customer_transactions.region
+      Category: customer_transactions.category
+      Country: customer_transactions.country
+      SubCategory: customer_transactions.sub_category
+      CustomerName: customer_transactions.customer_name
     row: 20
     col: 0
     width: 24
@@ -249,22 +249,22 @@
   - title: Sales Year Over Year
     name: Sales Year Over Year
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: looker_line
-    fields: [apollo_playbook_customer_transactions_reporting.Years, apollo_playbook_customer_transactions_reporting.Months,
-      apollo_playbook_customer_transactions_reporting.sales]
-    pivots: [apollo_playbook_customer_transactions_reporting.Years]
-    sorts: [apollo_playbook_customer_transactions_reporting.Years 0, apollo_playbook_customer_transactions_reporting.Months]
+    fields: [customer_transactions.Years, customer_transactions.Months,
+      customer_transactions.sales]
+    pivots: [customer_transactions.Years]
+    sorts: [customer_transactions.Years 0, customer_transactions.Months]
     limit: 500
     series_types: {}
     hidden_fields: []
     listen:
-      Segment: apollo_playbook_customer_transactions_reporting.segment
-      Region: apollo_playbook_customer_transactions_reporting.region
-      Category: apollo_playbook_customer_transactions_reporting.category
-      Country: apollo_playbook_customer_transactions_reporting.country
-      SubCategory: apollo_playbook_customer_transactions_reporting.sub_category
-      CustomerName: apollo_playbook_customer_transactions_reporting.customer_name
+      Segment: customer_transactions.segment
+      Region: customer_transactions.region
+      Category: customer_transactions.category
+      Country: customer_transactions.country
+      SubCategory: customer_transactions.sub_category
+      CustomerName: customer_transactions.customer_name
     row: 13
     col: 0
     width: 24
@@ -272,15 +272,15 @@
   - title: Sales by Category and SubCategory Last Quarter
     name: Sales by Category and SubCategory Last Quarter
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: looker_grid
-    fields: [apollo_playbook_customer_transactions_reporting.category, apollo_playbook_customer_transactions_reporting.sub_category,
-      apollo_playbook_customer_transactions_reporting.order_month, apollo_playbook_customer_transactions_reporting.sales]
-    pivots: [apollo_playbook_customer_transactions_reporting.order_month]
-    fill_fields: [apollo_playbook_customer_transactions_reporting.order_month]
+    fields: [customer_transactions.category, customer_transactions.sub_category,
+      customer_transactions.order_month, customer_transactions.sales]
+    pivots: [customer_transactions.order_month]
+    fill_fields: [customer_transactions.order_month]
     filters:
-      apollo_playbook_customer_transactions_reporting.order_date: 2019/10/01 to 2019/12/31
-    sorts: [apollo_playbook_customer_transactions_reporting.order_month desc 0, apollo_playbook_customer_transactions_reporting.category
+      customer_transactions.order_date: 2019/10/01 to 2019/12/31
+    sorts: [customer_transactions.order_month desc 0, customer_transactions.category
         desc]
     limit: 500
     color_application:
@@ -294,12 +294,12 @@
     hide_row_totals: false
     size_to_fit: true
     series_column_widths:
-      apollo_playbook_customer_transactions_reporting.category: 110
-      apollo_playbook_customer_transactions_reporting.sub_category: 110
-      apollo_playbook_customer_transactions_reporting.sales: 150
-      apollo_playbook_customer_transactions_reporting.order_month: 150
+      customer_transactions.category: 110
+      customer_transactions.sub_category: 110
+      customer_transactions.sales: 150
+      customer_transactions.order_month: 150
     series_cell_visualizations:
-      apollo_playbook_customer_transactions_reporting.sales:
+      customer_transactions.sales:
         is_active: true
     table_theme: gray
     limit_displayed_rows: false
@@ -311,14 +311,14 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     series_value_format:
-      apollo_playbook_customer_transactions_reporting.sales: $0.00 "K"
+      customer_transactions.sales: $0.00 "K"
     listen:
-      Segment: apollo_playbook_customer_transactions_reporting.segment
-      Region: apollo_playbook_customer_transactions_reporting.region
-      Category: apollo_playbook_customer_transactions_reporting.category
-      Country: apollo_playbook_customer_transactions_reporting.country
-      SubCategory: apollo_playbook_customer_transactions_reporting.sub_category
-      CustomerName: apollo_playbook_customer_transactions_reporting.customer_name
+      Segment: customer_transactions.segment
+      Region: customer_transactions.region
+      Category: customer_transactions.category
+      Country: customer_transactions.country
+      SubCategory: customer_transactions.sub_category
+      CustomerName: customer_transactions.customer_name
     row: 27
     col: 11
     width: 13
@@ -326,15 +326,15 @@
   - title: Sales by SubCategory Last Quarter
     name: Sales by SubCategory Last Quarter
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: looker_column
-    fields: [apollo_playbook_customer_transactions_reporting.sub_category, apollo_playbook_customer_transactions_reporting.sales,
-      apollo_playbook_customer_transactions_reporting.order_month]
-    pivots: [apollo_playbook_customer_transactions_reporting.sub_category]
-    fill_fields: [apollo_playbook_customer_transactions_reporting.order_month]
+    fields: [customer_transactions.sub_category, customer_transactions.sales,
+      customer_transactions.order_month]
+    pivots: [customer_transactions.sub_category]
+    fill_fields: [customer_transactions.order_month]
     filters:
-      apollo_playbook_customer_transactions_reporting.order_date: 2019/10/01 to 2019/12/31
-    sorts: [apollo_playbook_customer_transactions_reporting.order_month desc, apollo_playbook_customer_transactions_reporting.sub_category]
+      customer_transactions.order_date: 2019/10/01 to 2019/12/31
+    sorts: [customer_transactions.order_month desc, customer_transactions.sub_category]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -367,12 +367,12 @@
     show_silhouette: false
     totals_color: "#808080"
     listen:
-      Segment: apollo_playbook_customer_transactions_reporting.segment
-      Region: apollo_playbook_customer_transactions_reporting.region
-      Category: apollo_playbook_customer_transactions_reporting.category
-      Country: apollo_playbook_customer_transactions_reporting.country
-      SubCategory: apollo_playbook_customer_transactions_reporting.sub_category
-      CustomerName: apollo_playbook_customer_transactions_reporting.customer_name
+      Segment: customer_transactions.segment
+      Region: customer_transactions.region
+      Category: customer_transactions.category
+      Country: customer_transactions.country
+      SubCategory: customer_transactions.sub_category
+      CustomerName: customer_transactions.customer_name
     row: 27
     col: 0
     width: 11
@@ -380,12 +380,12 @@
   - title: Top 10 Customers
     name: Top 10 Customers
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: looker_grid
-    fields: [apollo_playbook_customer_transactions_reporting.sales, apollo_playbook_customer_transactions_reporting.customer_name]
+    fields: [customer_transactions.sales, customer_transactions.customer_name]
     filters:
-      apollo_playbook_customer_transactions_reporting.order_date: 2019/10/01 to 2019/12/31
-    sorts: [apollo_playbook_customer_transactions_reporting.sales desc]
+      customer_transactions.order_date: 2019/10/01 to 2019/12/31
+    sorts: [customer_transactions.sales desc]
     limit: 10
     show_view_names: false
     show_row_numbers: true
@@ -395,7 +395,7 @@
     hide_row_totals: false
     size_to_fit: true
     series_cell_visualizations:
-      apollo_playbook_customer_transactions_reporting.sales:
+      customer_transactions.sales:
         is_active: false
     table_theme: editable
     limit_displayed_rows: false
@@ -410,15 +410,15 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     series_value_format:
-      apollo_playbook_customer_transactions_reporting.sales: $0.00, "K"
+      customer_transactions.sales: $0.00, "K"
     series_types: {}
     listen:
-      Segment: apollo_playbook_customer_transactions_reporting.segment
-      Region: apollo_playbook_customer_transactions_reporting.region
-      Category: apollo_playbook_customer_transactions_reporting.category
-      Country: apollo_playbook_customer_transactions_reporting.country
-      SubCategory: apollo_playbook_customer_transactions_reporting.sub_category
-      CustomerName: apollo_playbook_customer_transactions_reporting.customer_name
+      Segment: customer_transactions.segment
+      Region: customer_transactions.region
+      Category: customer_transactions.category
+      Country: customer_transactions.country
+      SubCategory: customer_transactions.sub_category
+      CustomerName: customer_transactions.customer_name
     row: 7
     col: 8
     width: 7
@@ -426,12 +426,12 @@
   - title: Sales 2019
     name: Sales 2019
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: single_value
-    fields: [apollo_playbook_customer_transactions_reporting.Years, apollo_playbook_customer_transactions_reporting.sales]
-    sorts: [apollo_playbook_customer_transactions_reporting.Years desc]
+    fields: [customer_transactions.Years, customer_transactions.sales]
+    sorts: [customer_transactions.Years desc]
     limit: 500
-    dynamic_fields: [{table_calculation: vs_lastyear, label: Vs LastYear, expression: "${apollo_playbook_customer_transactions_reporting.sales}/offset(${apollo_playbook_customer_transactions_reporting.sales},1)\
+    dynamic_fields: [{table_calculation: vs_lastyear, label: Vs LastYear, expression: "${customer_transactions.sales}/offset(${customer_transactions.sales},1)\
           \ - 1", value_format: !!null '', value_format_name: percent_2, _kind_hint: measure,
         _type_hint: number}]
     color_application:
@@ -454,12 +454,12 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     listen:
-      Segment: apollo_playbook_customer_transactions_reporting.segment
-      Region: apollo_playbook_customer_transactions_reporting.region
-      Category: apollo_playbook_customer_transactions_reporting.category
-      Country: apollo_playbook_customer_transactions_reporting.country
-      SubCategory: apollo_playbook_customer_transactions_reporting.sub_category
-      CustomerName: apollo_playbook_customer_transactions_reporting.customer_name
+      Segment: customer_transactions.segment
+      Region: customer_transactions.region
+      Category: customer_transactions.category
+      Country: customer_transactions.country
+      SubCategory: customer_transactions.sub_category
+      CustomerName: customer_transactions.customer_name
     row: 3
     col: 0
     width: 6
@@ -467,8 +467,7 @@
   - name: ''
     type: text
     title_text: ''
-    body_text: ''
-    #<img src="https://storage.googleapis.com/appolo-poc/import-to-CloudSQL/apollo-2.jpeg" width="70%" height="100"/>
+    body_text: <img src="https://storage.googleapis.com/appolo-poc/import-to-CloudSQL/apollo-2.jpeg" width="70%" height="100"/>
     row: 0
     col: 0
     width: 8
@@ -491,13 +490,13 @@
   - title: Profit Flow Across Market and Region for 2019
     name: Profit Flow Across Market and Region for 2019
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     type: marketplace_viz_sankey::sankey-marketplace
-    fields: [apollo_playbook_customer_transactions_reporting.Months, apollo_playbook_customer_transactions_reporting.market,
-      apollo_playbook_customer_transactions_reporting.region, apollo_playbook_customer_transactions_reporting.profit]
+    fields: [customer_transactions.Months, customer_transactions.market,
+      customer_transactions.region, customer_transactions.profit]
     filters:
-      apollo_playbook_customer_transactions_reporting.order_date: '2019'
-    sorts: [apollo_playbook_customer_transactions_reporting.Months]
+      customer_transactions.order_date: '2019'
+    sorts: [customer_transactions.Months]
     limit: 500
     series_types: {}
     listen: {}
@@ -513,9 +512,9 @@
     allow_multiple_values: true
     required: false
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     listens_to_filters: []
-    field: apollo_playbook_customer_transactions_reporting.segment
+    field: customer_transactions.segment
   - name: Region
     title: Region
     type: field_filter
@@ -523,9 +522,9 @@
     allow_multiple_values: true
     required: false
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     listens_to_filters: []
-    field: apollo_playbook_customer_transactions_reporting.region
+    field: customer_transactions.region
   - name: Category
     title: Category
     type: field_filter
@@ -533,9 +532,9 @@
     allow_multiple_values: true
     required: false
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     listens_to_filters: []
-    field: apollo_playbook_customer_transactions_reporting.category
+    field: customer_transactions.category
   - name: Country
     title: Country
     type: field_filter
@@ -543,9 +542,9 @@
     allow_multiple_values: true
     required: false
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     listens_to_filters: []
-    field: apollo_playbook_customer_transactions_reporting.country
+    field: customer_transactions.country
   - name: SubCategory
     title: SubCategory
     type: field_filter
@@ -553,9 +552,9 @@
     allow_multiple_values: true
     required: false
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     listens_to_filters: []
-    field: apollo_playbook_customer_transactions_reporting.sub_category
+    field: customer_transactions.sub_category
   - name: CustomerName
     title: CustomerName
     type: field_filter
@@ -563,6 +562,6 @@
     allow_multiple_values: true
     required: false
     model: looker_test_health
-    explore: apollo_playbook_customer_transactions_reporting
+    explore: customer_transactions
     listens_to_filters: []
-    field: apollo_playbook_customer_transactions_reporting.customer_name
+    field: customer_transactions.customer_name

@@ -1,10 +1,10 @@
 view: customer_transactions {
-  sql_table_name: `gcp_test1.customer_transactions`
-    ;;
+  sql_table_name: gcp_playbook_reporting.customer_transactions ;;
 
   dimension: category {
     type: string
-    sql: ${TABLE}.Category ;;
+    sql: ${TABLE}.Category;;
+    drill_fields: [sub_category]
   }
 
   dimension: city {
@@ -21,100 +21,168 @@ view: customer_transactions {
   dimension: customer_name {
     type: string
     sql: ${TABLE}.CustomerName ;;
+    #link: {
+    # label: "Customer Deep Dive"
+    ##url: "https://mediaagility.looker.com/dashboards/28?CustomerName={{ _filters['apollo_playbook_customer_transactions_reporting.CustomerName'] | url_encode }}"
+    #url: "https://mediaagility.looker.com/dashboards/gcp_playbook_looker::customer_deep_dive?CustomerName={{ _filters['gcp_playbook_reporting.CustomerName'] | url_encode }}"
+    #icon_url: "https://looker.com/favicon.ico"
+    #}
+    link: {
+      label: "{{value}} Customer Deep Dive"
+      #url: "/dashboards/13?brand_analytics?Brand%20Name={{ value | encode_uri }}"
+      #url: "https://mediaagility.looker.com/dashboards/13?Brand%20Name={{ value | encode_uri }}"
+      url: "https://mediaagility.looker.com/dashboards/gcp_playbook_looker::customer_deep_dive?CustomerName={{ value | encode_uri }}"
+      icon_url: "http://www.looker.com/favicon.ico"
+    }
   }
 
-  dimension: discount {
-    type: number
-    sql: ${TABLE}.Discount ;;
-  }
+  measure: discount {
+    type: sum
+    value_format_name: usd
+    #sql: ${TABLE}.Discount ;;
+    drill_fields: [detail*]
+    sql: CASE WHEN {{_user_attributes["permission_discount"]}} = 1
+          THEN ${TABLE}.Discount
+          ELSE
+          -1
+          END ;;
 
-  dimension: market {
-    type: string
-    sql: ${TABLE}.Market ;;
-  }
+      html:
+          {% if _user_attributes["permission_discount"] == 1 %}
+          <a href="#drillmenu" target="_self"> {{ rendered_value }}
+          {% else %}
+          [Insufficient Permissions]
+          {% endif %} ;;
+    }
 
-  dimension_group: order {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    convert_tz: no
-    datatype: date
-    sql: ${TABLE}.OrderDate ;;
-  }
+    dimension: market {
+      type: string
+      sql: ${TABLE}.Market ;;
+    }
 
-  dimension: product_name {
-    type: string
-    sql: ${TABLE}.ProductName ;;
-  }
+    dimension_group: order {
+      type: time
+      timeframes: [
+        raw,
+        date,
+        week,
+        month,
+        quarter,
+        year
+      ]
+      convert_tz: no
+      datatype: date
+      sql: ${TABLE}.OrderDate ;;
+      drill_fields: [order_month, order_week, order_year]
+    }
 
-  dimension: profit {
-    type: number
-    sql: ${TABLE}.Profit ;;
-  }
+    dimension: product_name {
+      type: string
+      sql: ${TABLE}.ProductName ;;
+    }
 
-  dimension: quantity {
-    type: number
-    sql: ${TABLE}.Quantity ;;
-  }
+    measure: profit {
+      type: sum
+      value_format_name: usd
+      #sql: ${TABLE}.Profit ;;
+      drill_fields: [detail*]
+      sql: CASE WHEN {{_user_attributes["permission_discount"]}} = 1
+          THEN ${TABLE}.Profit
+          ELSE
+          -1
+          END ;;
 
-  dimension: region {
-    type: string
-    sql: ${TABLE}.Region ;;
-  }
+        html:
+          {% if _user_attributes["permission_discount"] == 1 %}
+          <a href="#drillmenu" target="_self"> {{ rendered_value }}
+          {% else %}
+          [Insufficient Permissions]
+          {% endif %} ;;
+      }
 
-  dimension: sales {
-    type: number
-    sql: ${TABLE}.Sales ;;
-  }
+      measure: quantity {
+        type: sum
+        sql: ${TABLE}.Quantity ;;
+        drill_fields: [detail*]
+      }
 
-  dimension: segment {
-    type: string
-    sql: ${TABLE}.Segment ;;
-  }
+      dimension: region {
+        type: string
+        sql: ${TABLE}.Region ;;
+        drill_fields: [country, state, city]
+      }
 
-  dimension_group: ship {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    convert_tz: no
-    datatype: date
-    sql: ${TABLE}.ShipDate ;;
-  }
+      measure: sales {
+        type: sum
+        value_format_name: usd
+        sql: ${TABLE}.Sales ;;
+        drill_fields: [detail*]
+      }
 
-  dimension: ship_mode {
-    type: string
-    sql: ${TABLE}.ShipMode ;;
-  }
+      dimension: segment {
+        type: string
+        sql: ${TABLE}.Segment ;;
+      }
 
-  dimension: shipping_cost {
-    type: number
-    sql: ${TABLE}.ShippingCost ;;
-  }
+      dimension_group: ship {
+        type: time
+        timeframes: [
+          raw,
+          date,
+          week,
+          month,
+          quarter,
+          year
+        ]
+        convert_tz: no
+        datatype: date
+        sql: ${TABLE}.ShipDate ;;
+        drill_fields: [ship_month, ship_week, ship_year]
+      }
 
-  dimension: state {
-    type: string
-    sql: ${TABLE}.State ;;
-  }
+      dimension: ship_mode {
+        type: string
+        sql: ${TABLE}.ShipMode ;;
+      }
 
-  dimension: sub_category {
-    type: string
-    sql: ${TABLE}.SubCategory ;;
-  }
+      measure: shipping_cost {
+        type: sum
+        value_format_name: usd
+        sql: ${TABLE}.ShippingCost ;;
+        drill_fields: [detail*]
+      }
 
-  measure: count {
-    type: count
-    drill_fields: [product_name, customer_name]
-  }
-}
+      dimension: state {
+        type: string
+        sql: ${TABLE}.State ;;
+      }
+
+      dimension: sub_category {
+        type: string
+        sql: ${TABLE}.SubCategory ;;
+        drill_fields: [product_name, customer_name]
+      }
+
+      dimension: Years{
+        #hidden: yes
+        type: number
+        sql: EXTRACT(year from ${TABLE}.OrderDate);;
+      }
+
+      dimension: Months {
+        ##sql: EXTRACT(month from ${TABLE}.OrderDate);;
+        sql: Concat(LPAD(Cast(EXTRACT(month from ${TABLE}.OrderDate) as string),2,"0"),"-",FORMAT_DATE("%b",${TABLE}.OrderDate));;
+      }
+
+      measure: count {
+        type: count
+        drill_fields: [detail*]
+      }
+
+      ## Sets ##
+
+      set: detail {
+        fields: [customer_name, product_name, category, sub_category, order_date, country, region, segment]
+      }
+
+    }
