@@ -1,5 +1,5 @@
-view: customer_transactions {
-  sql_table_name: gcp_playbook_reporting.customer_transactions ;;
+view: customer_test {
+  sql_table_name: customer_transactions ;;
 
   dimension: category {
     type: string
