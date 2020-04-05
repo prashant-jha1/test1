@@ -1,4 +1,4 @@
-view: Check_Customers {
+view: Check_Customer_Test {
   sql_table_name: customer_transactions;;
 
   dimension: category {
