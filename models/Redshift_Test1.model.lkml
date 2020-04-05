@@ -13,6 +13,6 @@ datagroup: redshift_test_default_datagroup {
 
 persist_with: redshift_test_default_datagroup
 
-explore: Check_Customer {}
+explore: Check_Customers {}
 
-explore: top_10_customers {}
+explore: top_10_customer {}
