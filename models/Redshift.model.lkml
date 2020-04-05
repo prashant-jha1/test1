@@ -13,4 +13,4 @@ datagroup: looker_test_health_default_datagroup {
 
 persist_with: looker_test_health_default_datagroup
 
-explore: customer_test {}
+explore: Check_Customer {}
