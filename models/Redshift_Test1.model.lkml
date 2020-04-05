@@ -1,4 +1,4 @@
-connection: "test1"
+connection: "bq_conn"
 
 # include all the views
 include: "/views/**/*.view"
