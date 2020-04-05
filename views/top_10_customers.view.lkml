@@ -1,8 +1,8 @@
-view: top_10_customers {
+view: top_10_customer {
   derived_table: {
     sql: SELECT
-        Check_Customer.CustomerName  AS check_customer_customer_name_1,
-        COALESCE(SUM(Check_Customer.Sales ), 0) AS check_customer_sales_1
+        Check_Customers.CustomerName  AS check_customer_customer_name_1,
+        COALESCE(SUM(Check_Customers.Sales ), 0) AS check_customer_sales_1
       FROM customer_transactions AS Check_Customer
 
       GROUP BY 1
