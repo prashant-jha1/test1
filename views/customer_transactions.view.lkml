@@ -1,5 +1,5 @@
 view: customer_test {
-  sql_table_name: customer_transactions ;;
+  sql_table_name: customer_transactions;;
 
   dimension: category {
     type: string
