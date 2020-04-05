@@ -1,4 +1,4 @@
-view: top_10_customer {
+view: top_10_customer_Test {
   derived_table: {
     sql: SELECT
         Check_Customers.CustomerName  AS check_customer_customer_name_1,
