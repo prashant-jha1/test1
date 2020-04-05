@@ -6,11 +6,11 @@ include: "/views/**/*.view"
 #include all the dashboards
 #include: "/dashboard/*.dashboard.lookml"
 
-datagroup: looker_test_health_default_datagroup {
+datagroup: redshift_test_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
-persist_with: looker_test_health_default_datagroup
+persist_with: redshift_test_default_datagroup
 
 explore: Check_Customer {}
